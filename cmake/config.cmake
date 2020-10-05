@@ -1,4 +1,4 @@
-# Build release version by default
+# Build release version by default but do not hardcode it
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif ()

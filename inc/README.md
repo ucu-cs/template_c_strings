@@ -36,7 +36,7 @@ A header file is a file containing C/C++ declarations and definitions that are s
 
 **Including a header file produces the same results as copying the contents of the header file into the source file**. Manual copying would be time-consuming and error-prone. With a header file, the related declarations appear in only one place. If they need to be changed, they can be changed in one place, and programs that include the header file will automatically use the new version when next recompiled.
 
-**By convention, header files use the `.h` extension**
+**By convention, header files use the `.h` extension.** For C++ usa of the '.hpp' extension is recomended though '.h' is OK too.
 
 ### Include syntax
 
@@ -81,6 +81,8 @@ The rest of the header is wrapped inside the conditional statement. This prevent
 
 **Note**: It is crucial to **use an include guard in every header**, since other programs will expect it to have one and this might lead to unwanted errors. All system header files use include guards.
 
+"\#pragma one" is a nonstandard directive -- it is a good addition to include guards but should not replace them.  
+
 ### Cmake
 
 To include a directory use the `target_include_directories(target LINK_TYPE ${INCLUDE_DIR})` command. `LINK_TYPE` has to be either `PUBLIC`, `PRIVATE` or `INTERFACE`.
@@ -105,5 +107,6 @@ Please make sure that your header file comply to all following guideline before 
     - global variable extern declarations
     - class declaration and member function declaration (C++)
     - Trivial member function defintions(C++)
-- **Only include necessary header files**
+- **Only include the necessary header files**
+- **But include all the necessary header files**
 - **The content of a header file should compile correctly by itself**
