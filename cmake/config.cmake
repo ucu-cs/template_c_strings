@@ -3,6 +3,10 @@ if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif ()
 
+# Support for dll-s
+if(MSVC)
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+endif()
 
 # Conan
 if (ENABLE_CONAN)
@@ -29,7 +33,6 @@ if (MSVC)
 else ()
     add_compile_options(${GCC_CLANG_WARNINGS})
 endif ()
-
 
 # Add sanitizers' CMake files to CMake path
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/sanitizers" ${CMAKE_MODULE_PATH})
