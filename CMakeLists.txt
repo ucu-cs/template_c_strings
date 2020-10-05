@@ -51,5 +51,7 @@ pvs_studio_add_target(TARGET ${PROJECT_NAME}.analyze ALL
         OUTPUT FORMAT errorfile
         MODE GA:1,2,3 OP:1,2,3 GA:1,2,3 OP:1,2,3 64:1,2,3 CS:1,2,3 MISRA:1,2,3
         LOG target_${PROJECT_NAME}.err)
+else()
+    message("Consider checking using PVS-Studio with `cmake -DENABLE_PVS_STUDIO=ON <.....>` or Windows GUI application.")
 endif()
 #####################################
