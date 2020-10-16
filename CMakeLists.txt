@@ -16,6 +16,15 @@ include(PVS-Studio.cmake)
 SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 endif()
 
+# Warnings
+if (MSVC)
+    # warning level 4 and all warnings as errors
+    add_compile_options(/W4 /WX)
+else()
+    # lots of warnings and all warnings as errors
+    add_compile_options(-Wall -Wextra -pedantic -Werror -Werror=vla)
+endif()
+
 # Include fixed CMake configuration
 include(cmake/config.cmake)
 
