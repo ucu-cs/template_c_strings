@@ -1,4 +1,0 @@
-# DO NOT DELETE THE FILE
-# Leave empty if no requirements are needed
-# libboost-all-dev is viable # O.F. In my opinion, this option is acceptable.
-libboost-program-options-dev

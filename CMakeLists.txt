@@ -14,7 +14,7 @@ option(ENABLE_PVS_STUDIO "Check using command-line PVS-Studio." OFF)
 
 ## PVS Studio
 if(ENABLE_PVS_STUDIO)
-    include(PVS-Studio.cmake)
+    include(cmake/PVS-Studio.cmake)
     SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 endif()
 
