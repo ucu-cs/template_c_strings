@@ -8,14 +8,6 @@ if(MSVC)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
 endif()
 
-# Conan
-if (ENABLE_CONAN)
-    include(cmake/conan.cmake)
-    conan_cmake_run(CONANFILE conanfile.txt
-                    BASIC_SETUP CMAKE_TARGETS
-                    BUILD missing)
-endif ()
-
 
 # Compiler warnings
 set(MSVC_WARNINGS /W4)
