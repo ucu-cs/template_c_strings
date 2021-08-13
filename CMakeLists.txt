@@ -7,7 +7,7 @@ project(${PROJECT_NAME} C)
 
 # Options
 option(WARNINGS_AS_ERRORS "Treat compiler warnings as errors." ON)
-option(ENABLE_SANITIZERS "Use sanitizers to detect errors." ON)
+option(ENABLE_SANITIZERS "Use sanitizers to detect errors." OFF)
 option(ENABLE_CONAN "Use Conan as a package manager." OFF)
 option(ENABLE_PVS_STUDIO "Check using command-line PVS-Studio." OFF)
 # ENABLE_SANITIZERS is the option for the test builds! Do not use it in the production builds.
@@ -26,6 +26,9 @@ else()
     # lots of warnings and all warnings as errors
     add_compile_options(-Wall -Wextra -pedantic -Werror -Werror=vla)
 endif()
+
+# Compile program to ./bin directory, not to ./build
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)
 
 # Include fixed CMake configuration
 include(cmake/config.cmake)
