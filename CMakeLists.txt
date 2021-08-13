@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 3.15)
 
 # CHANGE YOUR PROJECT NAME
-set(PROJECT_NAME test)
+set(PROJECT_NAME test_c_str)
+set(LIB_NAME my_c_string)
 
-project(${PROJECT_NAME} C)
+project(${PROJECT_NAME} C CXX)
 
 # Options
 option(WARNINGS_AS_ERRORS "Treat compiler warnings as errors." ON)
@@ -11,11 +12,15 @@ option(ENABLE_SANITIZERS "Use sanitizers to detect errors." OFF)
 option(ENABLE_PVS_STUDIO "Check using command-line PVS-Studio." OFF)
 # ENABLE_SANITIZERS is the option for the test builds! Do not use it in the production builds.
 
+#####################################
+
 ## PVS Studio
 if(ENABLE_PVS_STUDIO)
     include(cmake/PVS-Studio.cmake)
     SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 endif()
+
+#####################################
 
 # Warnings
 if (MSVC)
@@ -26,18 +31,39 @@ else()
     add_compile_options(-Wall -Wextra -pedantic -Werror -Werror=vla)
 endif()
 
-# Compile program to ./bin directory, not to ./build
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../bin)
+#####################################
 
 # Include fixed CMake configuration
 include(cmake/config.cmake)
 
-# Include headers
-include_directories(inc)
+# Make your c_strings library
+add_library(
+  ${LIB_NAME} SHARED 
+  ${CMAKE_SOURCE_DIR}/lib/c_string.c
+  ${CMAKE_SOURCE_DIR}/lib/c_string.h)
+
+target_include_directories(${LIB_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/lib)
+
+#####################################
 
 # Project source compilation
 add_executable(${PROJECT_NAME} src/main.c)
 
+target_link_libraries(${PROJECT_NAME} ${LIB_NAME})
+
+#####################################
+
+# Cpecify output directories
+set_target_properties(${LIB_NAME} ${PROJECT_NAME}
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set_target_properties(${LIB_NAME}
+        PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib_bin
+        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib_bin)
+
+
+#####################################
 # Sanitizers configuration
 if (ENABLE_SANITIZERS)
     set(SANITIZE_UNDEFINED ON)
