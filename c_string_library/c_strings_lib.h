@@ -1,12 +1,15 @@
 #pragma once
 
-#define NOT_FOUND_CODE -1
-#define MEMORY_ALLOCATION_ERR -2
-#define RANGE_ERR -3
-#define IO_READ_ERR -4
-#define IO_WRITE_ERR -5
-#define NULL_PTR_ERR -8
-#define BUFF_SIZE_ERR -9
+#include<stdlib.h>
+#include<stdio.h>
+
+#define NOT_FOUND_CODE (-1)
+#define MEMORY_ALLOCATION_ERR (-2)
+#define RANGE_ERR (-3)
+#define IO_READ_ERR (-4)
+#define IO_WRITE_ERR (-5)
+#define NULL_PTR_ERR (-8)
+#define BUFF_SIZE_ERR (-9)
 
 size_t my_str_size(const my_str_t* str);
 
