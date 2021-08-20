@@ -39,10 +39,10 @@ include(cmake/config.cmake)
 # Make your c_strings library
 add_library(
   ${LIB_NAME} SHARED 
-  ${CMAKE_SOURCE_DIR}/lib/c_string.c
-  ${CMAKE_SOURCE_DIR}/lib/c_string.h)
+  ${CMAKE_SOURCE_DIR}/c_str_lib/c_string.c
+  ${CMAKE_SOURCE_DIR}/c_str_lib/c_string.h)
 
-target_include_directories(${LIB_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/lib)
+target_include_directories(${LIB_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/c_str_lib)
 
 #####################################
 
@@ -54,13 +54,14 @@ target_link_libraries(${PROJECT_NAME} ${LIB_NAME})
 #####################################
 
 # Cpecify output directories
+# For different tests etc it should be `bin`. For shared library it should be `lib`
 set_target_properties(${LIB_NAME} ${PROJECT_NAME}
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set_target_properties(${LIB_NAME}
         PROPERTIES
-        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib_bin
-        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib_bin)
+        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib
+        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 
 
 #####################################
