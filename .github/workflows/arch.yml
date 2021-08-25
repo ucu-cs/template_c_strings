@@ -26,8 +26,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pacman -Syu -noconfirm
-        pacman -S cmake gcc make curl -noconfirm
+        pacman -Syu --noconfirm
+        pacman -S cmake gcc make curl --noconfirm
         curl -L https://gist.githubusercontent.com/Myralllka/e8f4e93e6bf0134b693371f1aad9d860/raw/57c66f2d90bcb5ebf94f31b4b927fd93e3b57734/install_pvs_on_linux.sh | sh
 
     - name: Configure
