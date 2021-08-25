@@ -9,7 +9,7 @@ project(${PROJECT_NAME} C CXX)
 # Options
 option(WARNINGS_AS_ERRORS "Treat compiler warnings as errors." ON)
 option(ENABLE_SANITIZERS "Use sanitizers to detect errors." OFF)
-option(ENABLE_PVS_STUDIO "Check using command-line PVS-Studio." OFF)
+option(ENABLE_PVS_STUDIO "Check using command-line PVS-Studio." ON)
 # ENABLE_SANITIZERS is the option for the test builds! Do not use it in the production builds.
 
 #####################################
