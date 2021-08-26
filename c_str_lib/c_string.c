@@ -3,4 +3,4 @@
 
 #include <c_string.h>
 
-// Realization, functions implementation should be here
+// Functions implementation should be here
