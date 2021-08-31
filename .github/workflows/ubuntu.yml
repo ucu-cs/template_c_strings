@@ -34,3 +34,11 @@ jobs:
 
     - name: Build
       run: cmake --build build
+
+    - name: Run tests
+      run: |
+          git clone https://github.com/ucu-cs/c_strings_auto_testing auto_tests
+          cd auto_tests
+          ./compile.sh
+          mv ../lib/* ./lib
+          ./bin/gtester
