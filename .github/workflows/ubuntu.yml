@@ -39,6 +39,6 @@ jobs:
       run: |
           git clone https://github.com/ucu-cs/c_strings_auto_testing auto_tests
           cd auto_tests
+          cp -r ../c_str_lib ./
           ./compile.sh
-          mv ../lib/* ./lib
           ./bin/gtester
