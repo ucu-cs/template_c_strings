@@ -1,4 +1,4 @@
-Template for your c_strings library. Because of automated testing, it is important **not to change the structure or names of files in this directory**. <br/>
+Template for your c_strings library. Because of automated testing, it is important **not to change the structure or names of files / directories**. <br/>
 To compile your program you can run the script.
 There is CI on Windows, Ubuntu and ArchLinux.
 ```
