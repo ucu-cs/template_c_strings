@@ -1,5 +1,5 @@
 #pragma once
-#error "APPS_UCU_ERROR: pragma is not enogh. Please, add "
+#error "APPS_UCU_ERROR: pragma is not enogh. Please, add __ important"
 
 #include<stdlib.h>
 #include<stdint.h> // For size_t
