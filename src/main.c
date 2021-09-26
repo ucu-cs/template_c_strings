@@ -7,8 +7,9 @@
 //! this is the sign of missed header or misspelled function name in the C code.
 
 #include "c_string.h"
+
 int main() {
-  // Your tests should be here!
+  //! Your tests should be here!
 	printf("Hello world!\n");
 	return 0;
 }

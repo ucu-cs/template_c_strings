@@ -1,9 +1,10 @@
 #pragma once
-#error "APPS_UCU_ERROR: pragma is not enogh. Please, add __ important"
+#error "APPS_UCU_ERROR: pragma is not enough. Please, add correct include guards"
 
-#include<stdlib.h>
-#include<stdint.h> // For size_t
-#error "APPS_UCU_ERROR: some of important includes are missing"
+#include <stdlib.h>
+#include <stdint.h> // For size_t
+#error "APPS_UCU_ERROR: some of the important includes are missing"
+#include <stdio.h>
 
 #define NOT_FOUND_CODE (-1)
 #define MEMORY_ALLOCATION_ERR (-2)
@@ -328,4 +329,4 @@ int my_str_write_file(const my_str_t* str, FILE* file);
  */
 int my_str_write(const my_str_t* str);
 
-#error "APPS_UCU_ERROR: it is recommended to check functions names and signatures before deleting this error..."
+#error "APPS_UCU_ERROR: please check functions' names and signatures before deleting this error!
