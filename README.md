@@ -28,5 +28,5 @@ template for your README:
 ### Additional tasks
 <mark>LIST OF ADDITIONAL TASKS<mark>
 
-# ATTANTION! 
-additional tasks not cpecified in previous paragraph as a list won't be graded.
+# ATTENTION! 
+Additional tasks not specified in previous paragraph as a list won't be graded.
