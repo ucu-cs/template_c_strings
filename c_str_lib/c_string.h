@@ -112,7 +112,7 @@ int my_str_copy(const my_str_t* from,  my_str_t* to, int reserve);
 int my_str_clear(my_str_t* str);
 
 /*
- * inserts given char in the given position in my_str-cstring
+ * inserts given char in the given position in my_str
  * if needed increases buffer
  * return:
  *      0  if OK
