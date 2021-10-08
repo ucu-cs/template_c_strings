@@ -11,9 +11,7 @@ option(WARNINGS_AS_ERRORS "Treat compiler warnings as errors." ON)
 option(ENABLE_PVS_STUDIO "Check using command-line PVS-Studio." ON)
 option(ENABLE_SANITIZERS "Use sanitizers to detect errors." OFF) # ENABLE_SANITIZERS is the option for the test builds! Do not use it in the production builds.
 
-# Include fixed CMake configuration
-include(cmake/config.cmake)
- 
+
 #####################################
 
 # Make your c_strings library
@@ -43,3 +41,10 @@ set_target_properties(${LIB_NAME}
         LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib
         ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 
+#####################################
+# Define ALL_TARGETS variable to use in PVS and Sanitizers
+set (ALL_TARGETS ${PROJECT_NAME} ${LIB_NAME})
+
+# Include fixed CMake configuration
+include(cmake/config.cmake)
+ 

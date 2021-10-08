@@ -1,10 +1,11 @@
 name: Windows
 
+
 on:
   pull_request:
     branches: [ master ]
-    #  push:
-    #branches: [ master ]
+  push:
+    branches: [ master ]
 
 jobs:
   build:
@@ -13,8 +14,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Get latest CMake and ninja
+        # Using 'latest' branch, the most recent CMake and ninja are installed.
+        uses: lukka/get-cmake@latest
+
       - name: Configure
-        run: cmake -DBOOST_ROOT="$env:BOOST_ROOT_1_72_0" -DBOOST_INCLUDEDIR="$env:BOOST_ROOT_1_72_0"\boost\include -DBOOST_LIBRARYDIR="$env:BOOST_ROOT_1_72_0"\lib -Bbuild
+        run: cmake -DENABLE_PVS_STUDIO=OFF -DBOOST_ROOT="$env:BOOST_ROOT_1_72_0" -DBOOST_INCLUDEDIR="$env:BOOST_ROOT_1_72_0"\boost\include -DBOOST_LIBRARYDIR="$env:BOOST_ROOT_1_72_0"\lib -Bbuild
 
       - name: Build
-        run: cmake -DBOOST_ROOT="$env:BOOST_ROOT_1_72_0" -DBOOST_INCLUDEDIR="$env:BOOST_ROOT_1_72_0"\boost\include -DBOOST_LIBRARYDIR="$env:BOOST_ROOT_1_72_0"\lib --build build
+        run: cmake --build build 
+      
+      - name: Run tests
+        run: git clone https://github.com/ucu-cs/c_strings_auto_testing auto_tests && cd auto_tests && cp -r ../c_str_lib ./ && mkdir build && cd build && cmake .. -G"Unix Makefiles" && make && cd .. && ./bin/gtester
