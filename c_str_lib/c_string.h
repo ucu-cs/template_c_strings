@@ -1,6 +1,10 @@
 #pragma once
 #error "APPS_UCU_ERROR: pragma is not enough. Please, add correct include guards"
 
+//! For the PVS studio -- disable inappropriate warnings.
+//-V::122 // Disables rather excessive warning.
+//-V::203 // Disables warning for the explicit casts.
+
 #include <stdlib.h>
 #include <stdint.h> // For size_t
 #error "APPS_UCU_ERROR: some of the important includes are missing"
