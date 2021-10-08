@@ -9,18 +9,21 @@ set(LIB_NAME my_c_string)
 project(${PROJECT_NAME} C CXX)
 
 #! Options
-option(WARNINGS_AS_ERRORS "Treat compiler warnings as errors." ON)
-option(ENABLE_PVS_STUDIO "Check using command-line PVS-Studio." ON)
+set(WARNINGS_AS_ERRORS ON)    # "Treat compiler warnings as errors."
+set(ENABLE_PVS_STUDIO OFF)    # "Check using command-line PVS-Studio."
 #! ENABLE_SANITIZERS is the option for the test builds!
-#  Definitely enable it while developing.
-#  Disable it for the production builds and before submitting for grading!
-option(ENABLE_SANITIZERS "Use sanitizers to detect errors." OFF)
+#       Definitely enable it while developing.
+#       Disable it for the production builds and before submitting for grading!
+set(ENABLE_SANITIZERS OFF)    # "Use sanitizers to detect errors."
 
 #! Build release version if not specified otherwise.
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif ()
 
+if(MSYS)
+    message(FATAL_ERROR "Your should not use MSYS shell! Use MinGW64!") # Or MinGW32 if you know what you are doing.
+endif()
 #####################################
 
 #! Make your c_strings library
