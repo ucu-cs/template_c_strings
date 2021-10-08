@@ -3,8 +3,8 @@ name: Ubuntu
 on:
   pull_request:
     branches: [ master ]
-  push:
-    branches: [ master ]
+  # push:
+    # branches: [ master ]
 
 
 jobs:
