@@ -9,24 +9,34 @@
 /* ############## ERROR codes ############### */
 // Show that character or substring can not be found
 #define NOT_FOUND_CODE (-1) 
-// Unsuccess attemt to allocate memory. All functions that directly or 
+// Failed to allocate memory. All functions that directly or
 // indirectly (a.e. call my_str_reserve) allocate memory, can return this code
 #define MEMORY_ALLOCATION_ERR (-2)
-// string range error. when string is empty or just wrong range given
+// Access to invalid index attempted.
+// Should be returned by the my_str_getc, my_str_putc; insert and substr families and
+// my_str_popback, when string is empty.
 #define RANGE_ERR (-3)
-// error reading from the file (stdin is also a file)
+// Error reading file. Can be returned by the "read" family functions. Note: stdin is a file too.
 #define IO_READ_ERR (-4)
-// error writing to the file (stdout is also a file)
+// Error writing file. Can be returned by the "write" family functions. Note: stdout and stderr are files too.
 #define IO_WRITE_ERR (-5)
-// obviously
+// Null pointer is given to functions which cannot deal with it:
+// my_str_create, my_str_from_cstr, my_str_get_cstr
+//        my_str_getc, my_str_putc,
+//        my_str_copy,
+//         insert, append and substr families
+// my_str_reserve, my_str_shrink_to_fit, my_str_resize
+//        read and write families
 #define NULL_PTR_ERR (-8)
-// too small buffer size for my_str_from_cstr
+// Too small buffer size for my_str_from_cstr
 #define BUFF_SIZE_ERR (-9)
 
+// Students can define additional error codes.
+
 typedef struct {
-    size_t capacity_m; // Block size
+    size_t capacity_m; // Allocated memory block size
     size_t size_m;     // Actual size of the string
-    char *data;       // Pointer on data block
+    char *data;        // Pointer to the data block
 } my_str_t;
 
 // ###########################################################
@@ -34,64 +44,83 @@ typedef struct {
 // ###########################################################
 
 /*
- * Creates empty dynamic string (my_str_t)
- * Allocate size+1 for easy work with my_str_get_cstr()
- * !important! user should always use my_str_create before using ANY other function
- * alternative for constructor from other languages
+ * Creates empty dynamic string (my_str_t).
+ * Important! User should always use my_str_create before using ANY other function.
+ *
+ * This function plays the role of the constructor, well-known in other languages.
+ *
+ * Lifetime of the string begins after this function called, ends after the my_str_free called.
+ * So, this function should be called once and just once before using any other string functions.
+ * Once more: one should never call any other library function for the my_str_t variable
+ * before calling  my_str_create.
  * 
- * str: pointer to my_str_t struct that user wants to create
- * buf_size: size of mem (in bytes) that user wants to allocate for buffer
- * return:
+ * str: pointer to my_str_t struct that should be initialized
+ * buf_size: size of memory (in bytes) that should be allocated for the buffer
+ *       It is a good idea to allocate buf_size+1 bytes -- to have a space for \0 symbol,
+ *       useful fpr the optimal my_str_get_cstr() implementation.
+ * Returns:
  *      0  if OK
  *      NULL_PTR_ERR if str points to NULL
- *      MEMORY_ALLOCATION_ERR if there was an error when allocating memory for buffer
+ *      MEMORY_ALLOCATION_ERR if there was an error while allocating memory for the buffer
  */
 int my_str_create(my_str_t* str, size_t buf_size);
 
 /*
- * frees all data from given my_str_t structure and set NULL to the pointer
- * alternative for destructor from other languages. Should be called exactly once, at the end of working with my_str_tz
- * return:
+ * Frees buffer of the given my_str_t structure and set NULL to the corresponding pointer.
+ *
+ *  This function plays the role of the object destructor, well-known in other languages.
+ *  Should be called exactly once, at the end of working with my_str_t.
+ *
+ *  Note 1: free() can be safely called with the NULL argument.
+ *  Note 2: always returns 0 for uniformity and future compatible API/ABI extensions.
+ *
+ * Returns:
  *     0 always
  */
 int my_str_free(my_str_t* str);
 
 /*
- * makes content of given my_str_t-string the same as given c-string.
- * forbidden to call my_str_create inside!
- * 
- * cstr: c-string from which data should be taken
- * buf_size: new size of buffer for given; 
+ * Makes content of given my_str_t-string the same as given c-string.
+ * Implementation should not call my_str_create!
+ *
+ * Note 1: function should copy the content of the c-string, pointed by the cstr to the internal buffer.
+ *       Just assigning a pointer to it to the internal buffer (data) is an extremely terrible idea!
+ *       (Based on typical students' failures).
+ * Note 2: memory should be allocated from the heap.
+ *
+ * cstr: c-string from which data should be copied
+ * buf_size: new size of buffer
  *      if buf_size == 0 then new buffer size = length of c-string
- *      if buf_size < size(cstr) -> error
+ *      if buf_size < size(cstr) -> return error. In this case str should not be changed!
  * 
- * return:
+ * Returns:
  *      0  if OK
  *      NULL_PTR_ERR if str or cstr is NULL
- *      BUFF_SIZE_ERR if buf_size if incorrect (too small)
- *      MEMORY_ALLOCATION_ERR if there occurred error while mem allocation
+ *      BUFF_SIZE_ERR if buf_size is incorrect (too small)
+ *      MEMORY_ALLOCATION_ERR if there occurred error while allocating memory.
  */
 int my_str_from_cstr(my_str_t* str, const char* cstr, size_t buf_size);
 
 // ###########################################################
-// ########################### methadata #####################
+// ########################### string information ############
 // ###########################################################
 
 /*
- * returns actual size of my_str-string
- * if str == NULL than size = 0
+ * Returns actual size of my_str_t string
+ * if str == NULL should return 0.
  */
 size_t my_str_size(const my_str_t* str);
 
 /*
- * returns size of allocated memory - 1 for my_str-cstring
- * if str == NULL than capacity = 0
+ * Returns size of allocated memory - 1 for my_str_t
+ * Note: -1 because one byte is reserved for the \0 symbol.
+ * If str == NULL shoud return 0.
  */
 size_t my_str_capacity(const my_str_t* str);
 
 /*
- * returns 1 if string is empty
- * if str == NULL than it is empty
+ * Returns 1 if string is empty
+ * If str == NULL should return 1 (true).
  */
 int my_str_empty(const my_str_t* str);
 
