@@ -1,16 +1,26 @@
 #pragma once
-#error "APPS_UCU_ERROR: pragma is not enogh. Please, add __ important"
+#error "APPS_UCU_ERROR: pragma is not enough. Please, add correct include guards"
 
-#include<stdlib.h>
-#include<stdint.h> // For size_t
-#error "APPS_UCU_ERROR: some of important includes are missing"
+#include <stdlib.h>
+#include <stdint.h> // For size_t
+#error "APPS_UCU_ERROR: some of the important includes are missing"
+#include <stdio.h>
 
-#define NOT_FOUND_CODE (-1)
+/* ############## ERROR codes ############### */
+// Show that character or substring can not be found
+#define NOT_FOUND_CODE (-1) 
+// Unsuccess attemt to allocate memory. All functions that directly or 
+// indirectly (a.e. call my_str_reserve) allocate memory, can return this code
 #define MEMORY_ALLOCATION_ERR (-2)
+// string range error. when string is empty or just wrong range given
 #define RANGE_ERR (-3)
+// error reading from the file (stdin is also a file)
 #define IO_READ_ERR (-4)
+// error writing to the file (stdout is also a file)
 #define IO_WRITE_ERR (-5)
+// obviously
 #define NULL_PTR_ERR (-8)
+// too small buffer size for my_str_from_cstr
 #define BUFF_SIZE_ERR (-9)
 
 typedef struct {
@@ -19,9 +29,16 @@ typedef struct {
     char *data;       // Pointer on data block
 } my_str_t;
 
+// ###########################################################
+// ############### construction and destruction ##############
+// ###########################################################
+
 /*
  * Creates empty dynamic string (my_str_t)
+ * Allocate size+1 for easy work with my_str_get_cstr()
  * !important! user should always use my_str_create before using ANY other function
+ * alternative for constructor from other languages
+ * 
  * str: pointer to my_str_t struct that user wants to create
  * buf_size: size of mem (in bytes) that user wants to allocate for buffer
  * return:
@@ -32,16 +49,22 @@ typedef struct {
 int my_str_create(my_str_t* str, size_t buf_size);
 
 /*
- * frees all data from given my_str_t structure
+ * frees all data from given my_str_t structure and set NULL to the pointer
+ * alternative for destructor from other languages. Should be called exactly once, at the end of working with my_str_tz
  * return:
  *     0 always
  */
 int my_str_free(my_str_t* str);
 
 /*
- * makes content of given my_str-string the same as given c-string.
+ * makes content of given my_str_t-string the same as given c-string.
+ * forbidden to call my_str_create inside!
+ * 
  * cstr: c-string from which data should be taken
- * buf_size: new size of buffer for given; if buf_size == 0 then new buffer size = length of c-string
+ * buf_size: new size of buffer for given; 
+ *      if buf_size == 0 then new buffer size = length of c-string
+ *      if buf_size < size(cstr) -> error
+ * 
  * return:
  *      0  if OK
  *      NULL_PTR_ERR if str or cstr is NULL
@@ -49,6 +72,10 @@ int my_str_free(my_str_t* str);
  *      MEMORY_ALLOCATION_ERR if there occurred error while mem allocation
  */
 int my_str_from_cstr(my_str_t* str, const char* cstr, size_t buf_size);
+
+// ###########################################################
+// ########################### methadata #####################
+// ###########################################################
 
 /*
  * returns actual size of my_str-string
@@ -68,16 +95,24 @@ size_t my_str_capacity(const my_str_t* str);
  */
 int my_str_empty(const my_str_t* str);
 
+// ###########################################################
+// #################### characters access ####################
+// ###########################################################
+
 /*
- * returns symbol on given index in my_str-string
+ * index - obvious
+ * 
  * return:
+ *      symbol on given index in my_str_t-string
  *      NULL_PTR_ERR if str == NULL
  *      RANGE_ERR if index is bad
  */
 int my_str_getc(const my_str_t* str, size_t index);
 
 /*
- * puts given symbol on given position in my_str-string
+ * puts given symbol on given position in my_str_t-string 
+ * with replacing of previous one
+ * 
  * return:
  *      0  if OK
  *      NULL_PTR_ERR if str or c is NULL
@@ -86,11 +121,21 @@ int my_str_getc(const my_str_t* str, size_t index);
 int my_str_putc(my_str_t* str, size_t index, char c);
 
 /*
- * returns c-string with the same content as my_str-string
- * result c-string is constant and can be incorrect after changing my_str content
+ * returns c-string with the same content as my_str_t-string
+ * result c-string is constant 
+ * and can be incorrect after changing my_str_t content
+ * time complexity should be O(1)!
+ * 
  * returns NULL if str is NULL
  */
 const char* my_str_get_cstr(my_str_t* str);
+
+// ###########################################################
+// ################# string modifications ####################
+// could cause size changing, reallocation
+// if buffer is too small - this functions increase them by calling my_str_reserve
+// normal multiplier for buffer size is 1.8-2
+// ###########################################################
 
 /*
  * copies content of one my_str-string to other
@@ -111,7 +156,7 @@ int my_str_copy(const my_str_t* from,  my_str_t* to, int reserve);
 int my_str_clear(my_str_t* str);
 
 /*
- * inserts given char in the given position in my_str-cstring
+ * inserts given char in the given position in my_str
  * if needed increases buffer
  * return:
  *      0  if OK
@@ -328,4 +373,4 @@ int my_str_write_file(const my_str_t* str, FILE* file);
  */
 int my_str_write(const my_str_t* str);
 
-#error "APPS_UCU_ERROR: it is recommended to check functions names and signatures before deleting this error..."
+#error "APPS_UCU_ERROR: please check functions' names and signatures before deleting this error!
