@@ -6,6 +6,10 @@ cmake_minimum_required(VERSION 3.15)
 set(PROJECT_NAME test_c_str)
 set(LIB_NAME my_c_string)
 
+if(WIN32) # Fix for "fatal error U1073: don't know how to make library" on MSVC
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+endif()
+
 project(${PROJECT_NAME} C CXX)
 
 #! Options
@@ -28,7 +32,7 @@ endif()
 
 #! Make your c_strings library
 add_library(
-  ${LIB_NAME} SHARED 
+  ${LIB_NAME} SHARED
   ${CMAKE_SOURCE_DIR}/c_str_lib/c_string.c
   ${CMAKE_SOURCE_DIR}/c_str_lib/c_string.h)
 
