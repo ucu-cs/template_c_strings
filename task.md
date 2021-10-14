@@ -60,7 +60,7 @@ words[2] -- "Three:Five"
 words[3] -- ""
 words[4] -- ""
 ```
-In case the last word is 'alone, just leave it alone =)
+In case the last word is 'alone, just leave it alone =)<br>
 4. Replace symbols on its [ASCII codes in HEX](https://en.wikipedia.org/wiki/ASCII), space-separated a.e.
 ```
 Ab; --> 41 62 3B
