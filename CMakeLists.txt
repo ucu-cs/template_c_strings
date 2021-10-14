@@ -5,6 +5,7 @@ cmake_minimum_required(VERSION 3.15)
 #! CHANGE YOUR PROJECT NAME
 set(PROJECT_NAME test_c_str)
 set(LIB_NAME my_c_string)
+set(ARRAY_LIB_NAME my_array)
 
 if(WIN32) # Fix for "fatal error U1073: don't know how to make library" on MSVC
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
