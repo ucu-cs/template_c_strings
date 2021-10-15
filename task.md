@@ -21,6 +21,7 @@ There are two main tasks:
 - If the library is done according to the task: functions prototypes, library interface
 - Implementation quality: how many fixes have you done, how many PVS, sanitiser's, and Valgrind errors are there if algorithms are not optimised (a.e. n^3 ore even worse)
 - Code quality: if the code is easily readable, how variables or additional function's names are suitable, etc.
+- :skull_and_crossbones: DO NOT USE PUBLIC TESTS FOR THIS LAB! They are not perfect and you can not evaluate the lib based on it's results - but you can use your's tests / usage examples from part 1
 
 ### :x: Do not communicate with original library authors even if you find them.
 
