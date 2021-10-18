@@ -2,7 +2,7 @@
 ## Usage the library from part 1 (3 points)
 
 ## Main goal
-In this part, you receive a randomly-assigned library written by your classmates.<br>
+In this part, you receive a randomly assigned library written by your classmates.<br>
 There are two main tasks:
 - **Task 1**: Using the library, implement the following program
 - **Task 2**: Recommend the point for your college's library (from 1 to 10) + write a feedback
@@ -32,7 +32,7 @@ There are two main tasks:
 	- read the whole file in memory, count words by reading them with `sscanf()` 
 	- dynamically increase its size with the same approach as for strings (+ 0.5 points)
 	- :skull_and_crossbones: In case of reading the file more than once maximum point for this task is 0
-- Consider that there are no words bigger than 100 characters (just crop if it is bigger). (+0.25 points for concatenation bigger words by hands. Specify in README!)
+- Consider that there are no words bigger than 100 characters (crop if it is bigger). (+0.25 points for concatenation bigger words by hands. Specify in README!)
 - Apply one of the following operations to each word
 - Save the result in another file, each word in a new line
 - Both filenames are command-line arguments (argv)
@@ -61,7 +61,7 @@ words[2] -- "Three:Five"
 words[3] -- ""
 words[4] -- ""
 ```
-In case the last word is 'alone, just leave it alone =)<br>
+In case the last word is 'alone', leave it alone =)<br>
 4. Replace symbols on its [ASCII codes in HEX](https://en.wikipedia.org/wiki/ASCII), space-separated a.e.
 ```
 Ab; --> 41 62 3B
@@ -88,8 +88,8 @@ words[4] -- Jayawardenepura
 ## Grading
 - 0.25 if the project can be compiled (with GCC, clang, msvc compilers), dynamically link `main.c` with both string and array libraries.
 - 0.75 for `feedback.md`
-- 1 for running the array and the program in main.c (also checked with PVS and Valgrind, other tools)
-- 1 from the teacher assistant or teacher for code style, documentation, variable names, project structure and other things that can not be checked automatically
+- 1 for the implementation of a given program in main.c and `array_lib` library (checked with PVS and Valgrind, other tools)
+- 1 from the teacher assistant or teacher. For code style, documentation, variable names, project structure and other things that can not be checked automatically
 - **0.75 additional points specified above**
 
 ## Submission
