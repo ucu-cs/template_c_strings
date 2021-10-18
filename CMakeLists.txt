@@ -11,6 +11,9 @@ if(WIN32) # Fix for "fatal error U1073: don't know how to make library" on MSVC
 endif()
 
 project(${PROJECT_NAME} C CXX)
+#! Some systems, especially -- MacOS could require the following or similar lines.
+# set(CMAKE_C_STANDARD 11)
+# set(CMAKE_CXX_STANDARD 14)
 
 #! Options
 set(WARNINGS_AS_ERRORS ON)    # "Treat compiler warnings as errors."
