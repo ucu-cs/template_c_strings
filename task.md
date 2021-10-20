@@ -94,9 +94,11 @@ words[4] -- Jayawardenepura
 
 ## Submission
 
+Firstly, create a new `dev` branch from the given `lab2_task2` branch using (for example) the following commands.
 ```
-git pull
-git checkout -b lab2_task2_dev lab2_task2
+git pull origin lab2_task2                  # update changes from the new branch
+git checkout  lab2_task2                    # checkout to branch with given lib for evaluation
+git checkout -b lab2_task2_dev lab2_task2   # switch to a new branch where you should do all changes
 ```
 Here you should make all changes<br>
 Program should be in the `src/main.c` file<br>
