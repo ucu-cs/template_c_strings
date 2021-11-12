@@ -7,7 +7,6 @@ There is CI on Windows, Ubuntu and ArchLinux.
 ```
 
 <mark>Template for your README. Remove all unused parts and instructions</mark>
-<mark>Template for your README. Remove all unused parts and instructions</mark>
 
 # Lab work 2: <mark>SHORT TOPIC</mark>
 Authors (team): <mark>AUTHORS WITH GITHUB LINKS</mark><br>
