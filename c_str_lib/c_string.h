@@ -7,14 +7,11 @@
 
 #include <stdlib.h>
 #include <stdint.h> // For size_t
+#include <stdio.h>
 
 #error "APPS_UCU_ERROR: some of the important includes are missing"
 
-#include <stdio.h>
-
 /* ############## ERROR codes ############### */
-// Show that character or substring cannot be found
-#define NOT_FOUND_CODE (-1)
 // Failed to allocate memory. All functions that directly or
 // indirectly (a.e. call my_str_reserve) allocate memory may return this code
 #define MEMORY_ALLOCATION_ERR (-2)
@@ -390,7 +387,7 @@ int my_str_resize(my_str_t *str, size_t new_size, char sym);
 
 // ################################################################################################
 // ############ lookup and comparison functions ###################################################
-// All of these functions should return their result or NOT_FOUND_CODE
+// All of these functions should return their result or SIZE_MAX
 // (which indicates the result's absence).
 //
 // This is essentially a different approach to create C API than in the previous functions,
@@ -401,19 +398,17 @@ int my_str_resize(my_str_t *str, size_t new_size, char sym);
 // However, do not forget to check for NULL pointers!
 // Simply handle NULL pointers as they are empty strings.
 //
-// Note: It is better to explicitly convert NOT_FOUND_CODE to size_t where necessary like this:
-// (size_t) NOT_FOUND_CODE.
 // ################################################################################################
 
 /*
  * Finds the first substring that matches "tofind" in the "str", starting from the position "from"
  * (in the str), inclusive, and returns the index of its first symbol.
  * If "tofind" is larger than "str" or empty -> consider it is not found.
- * If "tofind" is empty -- consider it not found in the "str".
- * 
+ * If "tofind" is empty -- consider it not found.
+ *
  * Returns:
- *      0 if OK,
- *      NOT_FOUND_CODE if not found.
+ *      position index if OK,
+ *      SIZE_MAX if not found.
  */
 size_t my_str_find(const my_str_t *str, const my_str_t *tofind, size_t from);
 
@@ -448,7 +443,7 @@ int my_str_cmp_cstr(const my_str_t *str1, const char *cstr2);
  *
  * Returns:
  *      index of the symbol if it exists in the string,
- *      NOT_FOUND_CODE if it's not in the string.
+ *      SIZE_MAX if it's not in the string.
  */
 size_t my_str_find_c(const my_str_t *str, char tofind, size_t from);
 
@@ -461,7 +456,7 @@ size_t my_str_find_c(const my_str_t *str, char tofind, size_t from);
  *
  * Returns:
  *      index of the symbol that satisfies the predicate,
- *      NOT_FOUND_CODE if it's not in the string.
+ *      SIZE_MAX if it's not in the string.
  */
 size_t my_str_find_if(const my_str_t *str, size_t beg, int (*predicate)(int));
 
